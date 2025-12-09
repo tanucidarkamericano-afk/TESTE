@@ -1,0 +1,92 @@
+/* Correções de Layout para Dispositivos Móveis - Correção Agressiva */
+
+/* 0. Correção de Overflow Global */
+/* Garante que o corpo da página não tenha overflow horizontal */
+body, html {
+    overflow-x: hidden !important;
+}
+
+/* 1. Correção da Navegação (Menu) */
+@media (max-width: 767px) {
+    /* Alvo: o elemento <nav> que contém os links */
+    .container > div > nav {
+        /* Força o empilhamento vertical dos links */
+        flex-direction: column !important;
+        /* Centraliza os itens do menu */
+        align-items: center !important;
+        /* Garante que o nav ocupe a largura total do container */
+        width: 100% !important;
+        /* Aumenta o espaçamento entre os itens empilhados */
+        gap: 0.5rem !important;
+        /* Garante que o container da navegação não force o overflow */
+        min-width: 0 !important;
+    }
+
+    /* Alvo: os links <a> dentro do <nav> */
+    .container > div > nav a {
+        /* Força o link a ocupar a largura total para empilhar */
+        width: 100% !important;
+        /* Centraliza o texto dentro do link */
+        text-align: center !important;
+        /* Remove qualquer padding horizontal que possa estar causando o problema */
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    /* Alvo: o <span> que contém o texto do link */
+    .container > div > nav a span {
+        /* Permite que o texto do link quebre a linha */
+        white-space: normal !important;
+        /* Garante que o span ocupe a largura total do link */
+        display: block !important;
+    }
+}
+
+/* 2. Correção Geral de Overflow */
+/* Garante que nenhum elemento exceda a largura do viewport, o que é a causa mais comum de overflow. */
+body * {
+    /* Garante que o box-model inclua padding e borda na largura total */
+    box-sizing: border-box !important;
+    /* Impede que qualquer elemento tenha uma largura mínima que cause overflow */
+    min-width: 0 !important;
+}
+
+/* 3. Correção do Container Imediato do Header */
+/* Garante que o container imediato da navegação não exceda a largura do viewport */
+.container > div {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    min-width: 0 !important;
+}
+
+/* 4. Correção do Conteúdo Principal */
+main {
+    /* Garante que o conteúdo principal não tenha largura mínima que cause overflow */
+    min-width: 0 !important;
+    /* Adiciona um padding horizontal para garantir que o conteúdo não cole nas bordas */
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+main > div {
+    min-width: 0 !important;
+}
+
+/* 5. Correção Agressiva para Conteúdo que Causa Overflow */
+/* Garante que tabelas e imagens grandes se ajustem ao container */
+@media (max-width: 767px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+    /* Força a quebra de linha em qualquer texto longo */
+    p, h1, h2, h3, h4, h5, h6, span, div {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+}
